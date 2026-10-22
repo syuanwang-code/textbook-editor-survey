@@ -140,10 +140,10 @@
         點擊下方按鈕即可一鍵複製邀請文案，轉發至 LINE 群組或 Email。快來一起推動夥伴參與！
       </p>
 
-      <!-- 預設邀請文案區塊 -->
+      <!-- 預設邀請文案區塊 (已更新為最新表單連結) -->
       <div class="relative bg-brand-50 rounded-xl p-4 border border-brand-200 text-sm text-warmgray-800 leading-relaxed font-mono">
         <span class="absolute top-3 right-3 text-brand-300 text-xs"><i class="fa-solid fa-quote-right"></i></span>
-        <p id="shareTextContent">臺師大創造力發展研究所正在進行「教科書編輯創新經驗」相關研究。填問卷抽 500元、200元、100元禮券，累積滿100人即解鎖加碼，之後每多30人再加碼抽出500元1名！快來一起填問卷參加抽獎：https://forms.gle/DVxEbfaDRcMN7GUP8</p>
+        <p id="shareTextContent">臺師大創造力發展研究所正在進行「教科書編輯創新經驗」相關研究。填問卷抽 500元、200元、100元禮券，累積滿100人即解鎖加碼，之後每多30人再加碼抽出500元1名！快來一起填問卷參加抽獎：https://forms.gle/McScEJRPmQJtHWnW7</p>
       </div>
 
       <!-- 複製與分享按鈕 -->
@@ -204,7 +204,7 @@
   <!-- JavaScript 邏輯設定 -->
   <script>
     // ==========================================
-    // ⚙️ 參數設定區 (已填入您的即時 API)
+    // ⚙️ 參數設定區
     // ==========================================
     const API_URL = "https://script.google.com/macros/s/AKfycbx3Ep6iYfGm7zTkCNv81WGBuLLmcY-JoqMMFwlPCrZNPWM2t1GKQQvGXKjkiZTGHBoIeQ/exec";       
     const DRAW_VIDEO_URL = "";  // 若未來有 YouTube 影片，填入如 "https://www.youtube.com/embed/XXXXXX"
@@ -283,4 +283,13 @@
         const alertBox = document.getElementById('copyAlert');
         alertBox.classList.remove('hidden');
         setTimeout(() => {
-          alertBox
+          alertBox.classList.add('hidden');
+        }, 3000);
+      }).catch(err => {
+        console.error('複製失敗: ', err);
+      });
+    }
+  </script>
+
+</body>
+</html>
