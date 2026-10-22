@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>感謝填答｜教科書編輯創新經驗研究抽獎與分享</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f4f7f9',
+              100: '#e3ebf0',
+              200: '#cad7e1',
+              300: '#a3bccc',
+              400: '#759bb3',
+              500: '#547f99',
+              600: '#41657c',
+              700: '#365367',
+              800: '#2f4656',
+              900: '#2a3c4a',
+            },
+            warmgray: {
+              50: '#faf9f8',
+              100: '#f2f0ed',
+              200: '#e5e1dc',
+              300: '#d3ccbe',
+              400: '#b8ac9a',
+              500: '#9e8f7c',
+            },
+            amber: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f4f7f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cad7e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a3bccc;
+    }
+  </style>
+</head>
+<body class="bg-brand-50 text-slate-700 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-200 selection:text-brand-900">
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed top-5 right-5 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-800 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 border border-slate-700">
+      <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+      <span id="toast-message" class="text-sm font-medium">訊息提示</span>
+    </div>
+  </div>
+
+  <!-- Header Section -->
+  <header class="w-full bg-white/80 backdrop-blur-md border-b border-brand-100 sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-4 py-3.5 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-pulse"></span>
+        <span class="text-xs sm:text-sm font-semibold tracking-wide text-brand-800 uppercase">國立臺灣師範大學 創造力發展研究</span>
+      </div>
+      <a href="#privacy" class="text-xs text-brand-600 hover:text-brand-800 transition flex items-center gap-1 font-medium">
+        <i class="fa-solid fa-shield-halved"></i> 匿名隱私承諾
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-3xl mx-auto px-4 py-8 sm:py-12 space-y-8 flex-grow w-full">
+
+    <!-- Hero / Thank You Card -->
+    <div class="bg-white rounded-2xl p-6 sm:p-10 shadow-sm border border-brand-100 text-center relative overflow-hidden">
+      <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-50 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-warmgray-100 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-brand-50 text-brand-600 rounded-2xl mb-4 shadow-inner">
+        <i class="fa-solid fa-heart-circle-check text-2xl"></i>
+      </div>
+      
+      <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">
+        感謝您用心完成問卷！
+      </h1>
+      <p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+        每一位教科書編輯的寶貴經驗，都是推動臺灣教育革新的關鍵拼圖。您的寶貴想法已安全傳送至研究資料庫。
+      </p>
+
+      <!-- Security Badge -->
+      <div id="privacy" class="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-warmgray-50 border border-warmgray-200 rounded-xl text-xs sm:text-sm text-warmgray-500">
+        <i class="fa-solid fa-lock text-brand-500"></i>
+        <span>本研究遵循嚴謹學術倫理，已實施完全去識別化與匿名機制</span>
+      </div>
+    </div>
+
+    <!-- Prize & Escalation System Section -->
+    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-brand-100 space-y-6">
+      
+      <!-- Current Status Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-brand-50">
+        <div>
+          <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">即時填答動態</span>
+          <h2 class="text-lg font-bold text-slate-800">目前累積填答進度</h2>
+        </div>
+        <div class="flex items-baseline space-x-2 bg-brand-50 px-4 py-2 rounded-xl border border-brand-100">
+          <span id="counter" class="text-3xl font-extrabold text-brand-700">0</span>
+          <span class="text-xs text-brand-600 font-medium">位編輯夥伴</span>
+        </div>
+      </div>
+
+      <!-- Basic Prize Grid -->
+      <div class="space-y-3">
+        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-trophy text-amber-500"></i> 基本預設獎項（確定抽出）
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- 1st Prize -->
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200/80 rounded-xl p-3.5 flex items-center space-x-3 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-lg shadow-sm">🥇</div>
+            <div>
+              <div class="text-xs font-semibold text-amber-800">頭獎 (1名)</div>
+              <div class="text-base font-extrabold text-amber-900">500 元禮券</div>
+            </div>
+          </div>
+          <!-- 2nd Prize -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-lg bg-slate-300 text-slate-700 flex items-center justify-center font-bold text-lg">🥈</div>
+            <div>
+              <div class="text-xs font-semibold text-slate-600">貳獎 (2名)</div>
+              <div class="text-base font-bold text-slate-800">200 元禮券</div>
+            </div>
+          </div>
+          <!-- 3rd Prize -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-lg bg-amber-700/20 text-amber-800 flex items-center justify-center font-bold text-lg">🥉</div>
+            <div>
+              <div class="text-xs font-semibold text-slate-600">參獎 (3名)</div>
+              <div class="text-base font-bold text-slate-800">100 元禮券</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Viral Escalation Rule Banner -->
+      <div class="bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-xl p-4 sm:p-5 shadow-sm space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-fire text-amber-300 text-lg animate-bounce"></i>
+            <h3 class="font-bold text-sm sm:text-base">每增加 30 人，加碼 500 元 1 名！</h3>
+          </div>
+          <span class="text-[11px] bg-white/20 px-2.5 py-1 rounded-full text-brand-100">無上限加碼</span>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between text-xs text-brand-100 font-medium">
+            <span id="next-goal-text">距離下一階段加碼還差 -- 人</span>
+            <span id="progress-percent" class="font-bold text-white">0%</span>
+          </div>
+          <div class="w-full h-3 bg-brand-900/40 rounded-full overflow-hidden p-0.5 border border-white/20">
+            <div id="progress-bar" class="h-full bg-gradient-to-r from-amber-300 to-amber-500 rounded-full transition-all duration-1000 ease-out w-0"></div>
+          </div>
+        </div>
+
+        <!-- Dynamic Unlock Summary -->
+        <div class="pt-2 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-brand-100 gap-1">
+          <div>目前已累積加碼 500 元禮券：<strong id="bonus-count" class="text-amber-300 text-sm font-bold">0</strong> 名</div>
+          <div class="text-brand-200 text-[11px]">（越多人填寫，中獎率越高！）</div>
+        </div>
+      </div>
+
+      <!-- Milestone Timeline List -->
+      <div class="space-y-2">
+        <div class="text-xs font-semibold text-slate-500">📍 加碼里程碑解鎖進度：</div>
+        <div id="milestones-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <!-- JS generated milestones -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Lottery Registration Form Card -->
+    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-brand-100 space-y-6">
+      <div class="border-b border-brand-50 pb-4">
+        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Step 1. 驗證並登記</span>
+        <h2 class="text-lg font-bold text-slate-800">登記參加抽獎</h2>
+      </div>
+
+      <!-- Privacy Guarantee Callout -->
+      <div class="bg-brand-50/50 border border-brand-100 rounded-xl p-4 text-xs sm:text-sm text-brand-800 space-y-1">
+        <div class="font-semibold flex items-center gap-1.5 text-brand-700">
+          <i class="fa-solid fa-user-shield"></i> 完全去識別化抽獎機制說明
+        </div>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          此抽獎名單儲存於<b>獨立資料庫</b>，絕不會與您的問卷答覆內容進行任何連結或比對，請放心留下常用 Email。
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form id="lottery-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+        
+        <!-- Verification Code Field -->
+        <div>
+          <div class="flex justify-between items-center mb-1.5">
+            <label for="code" class="block text-xs font-medium text-slate-700">
+              抽獎驗證碼 <span class="text-rose-500">*</span>
+            </label>
+            <span id="auto-verified-badge" class="hidden text-[11px] text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md font-medium">
+              <i class="fa-solid fa-circle-check"></i> 已自動填入驗證碼
+            </span>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-sm">
+              <i class="fa-solid fa-key"></i>
+            </div>
+            <input type="text" id="code" required placeholder="請輸入問卷送出頁面顯示的驗證碼（如：EDIT2026）" 
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white transition uppercase font-mono tracking-wider">
+          </div>
+          <p class="mt-1 text-[11px] text-slate-400">請填寫問卷完成畫面（Google 表單送出後）顯示之專屬驗證碼。</p>
+        </div>
+
+        <!-- Email Field -->
+        <div>
+          <label for="email" class="block text-xs font-medium text-slate-700 mb-1.5">
+            電子信箱 Email <span class="text-rose-500">*</span>
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-sm">
+              <i class="fa-regular fa-envelope"></i>
+            </div>
+            <input type="email" id="email" required placeholder="example@editor.com.tw" 
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white transition">
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn" class="w-full py-3 px-6 bg-brand-600 hover:bg-brand-700 active:scale-[0.99] text-white font-medium text-sm rounded-xl shadow-md shadow-brand-200 transition-all duration-200 flex items-center justify-center space-x-2">
+          <span>驗證並參加抽獎</span>
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </form>
+
+      <!-- Success State Box (Hidden by default) -->
+      <div id="success-box" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-4 text-center space-y-1">
+        <i class="fa-solid fa-circle-check text-2xl text-emerald-600 mb-1"></i>
+        <div class="font-bold text-sm">驗證成功，已登記抽獎資格！</div>
+        <div class="text-xs text-emerald-700">若中獎將以電子郵件通知，預祝您幸運中獎！</div>
+      </div>
+    </div>
+
+    <!-- Viral Share & Invite Colleagues Section -->
+    <div class="bg-gradient-to-br from-brand-600 to-brand-800 text-white rounded-2xl p-6 sm:p-8 shadow-md space-y-6">
+      <div class="space-y-2">
+        <span class="inline-block px-2.5 py-1 bg-white/10 backdrop-blur-md rounded-lg text-xs font-medium text-brand-100">
+          Step 2. 邀請同仁共襄盛舉
+        </span>
+        <h2 class="text-xl font-bold">拉編輯夥伴一起點亮出版視角！</h2>
+        <p class="text-brand-100 text-xs sm:text-sm leading-relaxed">
+          點擊下方按鈕複製專屬邀請文案，一鍵分享至 LINE 群組或 Email。每增加 30 人填寫，自動加碼抽出 500 元禮券 1 名！
+        </p>
+      </div>
+
+      <!-- Preserved Copy Box -->
+      <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-xl p-4 space-y-3">
+        <div class="text-xs font-semibold text-brand-200 flex justify-between items-center">
+          <span>推薦邀請文案：</span>
+          <i class="fa-solid fa-quote-right text-white/30"></i>
+        </div>
+        <p id="share-text" class="text-xs sm:text-sm text-slate-100 leading-relaxed font-normal bg-black/10 p-3 rounded-lg border border-white/5 select-all">
+我們教科書編輯的心聲終於有人要研究了！臺師大創造力發展研究所正在進行「教科書編輯創新經驗」研究，完全去識別化超安心。填問卷抽 500元、200元禮券，每多30人填寫再加碼抽出500元1名！快來一起填答：https://forms.gle/5hFc8TCDdJAASEHMA
+        </p>
+        
+        <div class="pt-1 flex flex-wrap gap-2">
+          <button onclick="copyShareText()" class="flex-1 min-w-[140px] py-2.5 px-4 bg-white text-brand-800 hover:bg-brand-50 font-semibold text-xs rounded-lg transition flex items-center justify-center space-x-1.5 shadow">
+            <i class="fa-regular fa-copy"></i>
+            <span>複製邀請文案</span>
+          </button>
+          <button onclick="shareToLine()" class="py-2.5 px-4 bg-[#06C755] hover:bg-[#05b34c] text-white font-semibold text-xs rounded-lg transition flex items-center justify-center space-x-1.5 shadow">
+            <i class="fa-brands fa-line text-sm"></i>
+            <span>LINE 分享</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Proof / Public Lottery Section -->
+    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-brand-100 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-50 pb-4">
+        <div>
+          <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">透明公開證明</span>
+          <h2 class="text-lg font-bold text-slate-800">抽獎過程與得獎名單</h2>
+        </div>
+        <span class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full w-fit">
+          <i class="fa-solid fa-video text-amber-500"></i> 全程錄影存證
+        </span>
+      </div>
+
+      <!-- Video Placeholder Container -->
+      <div class="relative bg-brand-50 border-2 border-dashed border-brand-200 rounded-2xl p-8 sm:p-12 text-center overflow-hidden group">
+        
+        <!-- Unreleased Video State -->
+        <div id="video-placeholder" class="space-y-4">
+          <div class="w-14 h-14 bg-white text-brand-400 rounded-2xl flex items-center justify-center mx-auto shadow-sm group-hover:scale-105 transition">
+            <i class="fa-solid fa-clapperboard text-2xl"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-sm sm:text-base font-bold text-slate-700">抽獎公開影片上傳倒數中...</h3>
+            <p class="text-xs text-slate-600 max-w-sm mx-auto">
+              研究團隊將於問卷收集截止後進行電腦隨機抽獎，並將全程錄影影片公布於此頁面，保障所有參與者的權益。
+            </p>
+          </div>
+          <div class="inline-block text-[11px] font-medium text-brand-600 bg-white px-3 py-1 rounded-md border border-brand-100">
+            預計發布時間：問卷截止後 3 日內
+          </div>
+        </div>
+
+        <!-- Real Video Player Container (Hidden by default, used when video URL is ready) -->
+        <div id="video-container" class="hidden w-full aspect-video rounded-xl overflow-hidden shadow-lg">
+          <iframe id="lottery-video" class="w-full h-full" src="" title="抽獎過程公開影片" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-brand-100 py-6 text-center text-xs text-slate-600">
+    <div class="max-w-4xl mx-auto px-4 space-y-2">
+      <p class="font-medium text-slate-600">國立臺灣師範大學 創造力發展研究團隊</p>
+      <p class="text-[11px]">指導教授：蔡其瑞 教授 ｜ 研究生：王絢</p>
+      <p class="text-[10px] text-slate-600 pt-2">© 2026 Academic Research Project. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Configuration
+    const CURRENT_RESPONSES = 45; // 目前實際填答人數
+    const VALID_CODE = 'EDIT2026'; // 設定之正確驗證碼（不區分大小寫）
+    const ESCALATION_STEP = 30; // 每 30 人加碼一次
+
+    // Video URL configuration (Set Youtube Embed link when ready, e.g., 'https://www.youtube.com/embed/XXXXX')
+    const DRAW_VIDEO_URL = ''; 
+
+    // DOM Elements & Animation on Load
+    window.onload = function() {
+      animateCounter(CURRENT_RESPONSES);
+      calculateEscalation(CURRENT_RESPONSES);
+      checkUrlParams();
+      checkVideoStatus();
+    };
+
+    // Check URL parameters for auto-filling code (e.g. ?code=EDIT2026)
+    function checkUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const codeParam = urlParams.get('code');
+      if (codeParam) {
+        const codeInput = document.getElementById('code');
+        codeInput.value = codeParam.trim().toUpperCase();
+        document.getElementById('auto-verified-badge').classList.remove('hidden');
+      }
+    }
+
+    // Animated Counter Function
+    function animateCounter(target) {
+      const counterElement = document.getElementById('counter');
+      let current = 0;
+      const duration = 1000;
+      const stepTime = 20;
+      const steps = duration / stepTime;
+      const increment = target / steps;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          counterElement.innerText = target;
+          clearInterval(timer);
+        } else {
+          counterElement.innerText = Math.floor(current);
+        }
+      }, stepTime);
+    }
+
+    // Dynamic Escalation Calculator & Progress Bar
+    function calculateEscalation(current) {
+      const bonusUnlocked = Math.floor(current / ESCALATION_STEP);
+      const nextGoal = (bonusUnlocked + 1) * ESCALATION_STEP;
+      const neededMore = nextGoal - current;
+      
+      const prevGoal = bonusUnlocked * ESCALATION_STEP;
+      const progressInStep = current - prevGoal;
+      const percent = Math.round((progressInStep / ESCALATION_STEP) * 100);
+
+      document.getElementById('bonus-count').innerText = bonusUnlocked;
+      document.getElementById('next-goal-text').innerText = `距離下個 500元 加碼名減（目標 ${nextGoal} 人）還差 ${neededMore} 人！`;
+      document.getElementById('progress-bar').style.width = percent + '%';
+      document.getElementById('progress-percent').innerText = percent + '%';
+
+      // Render Milestone Grid
+      renderMilestones(current);
+    }
+
+    // Milestone Renderer
+    function renderMilestones(current) {
+      const container = document.getElementById('milestones-list');
+      const milestones = [30, 60, 90, 120];
+      container.innerHTML = '';
+
+      milestones.forEach(m => {
+        const isUnlocked = current >= m;
+        const item = document.createElement('div');
+        item.className = `p-2.5 rounded-lg border text-center transition ${
+          isUnlocked 
+            ? 'bg-emerald-50 border-emerald-200 text-emerald-800 font-semibold' 
+            : 'bg-slate-50 border-slate-200 text-slate-400'
+        }`;
+        
+        item.innerHTML = `
+          <div>${m} 人達標</div>
+          <div class="text-[11px] mt-0.5">${isUnlocked ? '✓ 解鎖第 ' + (m/30) + ' 份 500元' : '解鎖第 ' + (m/30) + ' 份 500元'}</div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    // Check Video Availability
+    function checkVideoStatus() {
+      if (DRAW_VIDEO_URL && DRAW_VIDEO_URL.trim() !== '') {
+        document.getElementById('video-placeholder').classList.add('hidden');
+        document.getElementById('video-container').classList.remove('hidden');
+        document.getElementById('lottery-video').src = DRAW_VIDEO_URL;
+      }
+    }
+
+    // Handle Form Submission with Verification
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const codeInput = document.getElementById('code');
+      const emailInput = document.getElementById('email');
+      const submitBtn = document.getElementById('submit-btn');
+      const successBox = document.getElementById('success-box');
+
+      const userCode = codeInput.value.trim().toUpperCase();
+
+      // Front-end Code Verification
+      if (userCode !== VALID_CODE) {
+        showToast('抽獎驗證碼不正確！請確認問卷完成頁面顯示之驗證碼', 'error');
+        codeInput.focus();
+        return;
+      }
+
+      if (!emailInput.value) return;
+
+      // Submit State Animation
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 驗證比對中...';
+
+      setTimeout(() => {
+        submitBtn.classList.add('hidden');
+        codeInput.disabled = true;
+        emailInput.disabled = true;
+        successBox.classList.remove('hidden');
+        showToast('驗證成功！已完成抽獎登記', 'success');
+      }, 800);
+    }
+
+    // Copy Share Text
+    function copyShareText() {
+      const textToCopy = document.getElementById('share-text').innerText.trim();
+      
+      const textarea = document.createElement('textarea');
+      textarea.value = textToCopy;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        document.execCommand('copy');
+        showToast('文案已複製！可直接貼上至群組', 'success');
+      } catch (err) {
+        showToast('複製失敗，請手動複製文案', 'error');
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+
+    // Share to LINE
+    function shareToLine() {
+      const text = document.getElementById('share-text').innerText.trim();
+      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(text)}`;
+      window.open(lineUrl, '_blank');
+    }
+
+    // Toast Notification System
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastMessage.innerText = message;
+
+      if (type === 'success') {
+        toastIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-lg';
+      } else {
+        toastIcon.className = 'fa-solid fa-triangle-exclamation text-rose-400 text-lg';
+      }
+
+      toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-100px]', 'opacity-0');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
