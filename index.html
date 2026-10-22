@@ -204,9 +204,9 @@
   <!-- JavaScript 邏輯設定 -->
   <script>
     // ==========================================
-    // ⚙️ 參數設定區
+    // ⚙️ 參數設定區 (已填入您的即時 API)
     // ==========================================
-    const API_URL = "";       // 若未來串接 Google Apps Script 網址請貼在此處
+    const API_URL = "https://script.google.com/macros/s/AKfycbx3Ep6iYfGm7zTkCNv81WGBuLLmcY-JoqMMFwlPCrZNPWM2t1GKQQvGXKjkiZTGHBoIeQ/exec";       
     const DRAW_VIDEO_URL = "";  // 若未來有 YouTube 影片，填入如 "https://www.youtube.com/embed/XXXXXX"
 
     // 初始化網頁數據與自動抓取
@@ -230,8 +230,7 @@
     // 從 Google 試算表動態取得人數的函數
     function fetchRespondentCount() {
       if (!API_URL || API_URL.includes("在此貼上")) {
-        // 尚未設定 API 時的預設示範數字（可隨時修改測試）
-        updateUI(42);
+        updateUI(0);
         return;
       }
 
@@ -243,7 +242,7 @@
         })
         .catch(err => {
           console.error('無法取得即時人數:', err);
-          updateUI(42);
+          document.getElementById('respondentCount').innerText = "0*";
         });
     }
 
@@ -284,13 +283,4 @@
         const alertBox = document.getElementById('copyAlert');
         alertBox.classList.remove('hidden');
         setTimeout(() => {
-          alertBox.classList.add('hidden');
-        }, 3000);
-      }).catch(err => {
-        console.error('複製失敗: ', err);
-      });
-    }
-  </script>
-
-</body>
-</html>
+          alertBox
