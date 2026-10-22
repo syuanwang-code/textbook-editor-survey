@@ -87,7 +87,7 @@
           <h2 class="text-xl font-bold text-brand-900">目前問卷填答總人數</h2>
         </div>
         <div class="flex items-baseline gap-2">
-          <span id="respondentCount" class="text-4xl font-extrabold text-brand-700">0</span>
+          <span id="respondentCount" class="text-4xl font-extrabold text-brand-700">載入中...</span>
           <span class="text-sm font-medium text-warmgray-600">人完答</span>
         </div>
       </div>
@@ -115,7 +115,7 @@
       <!-- 進度條 -->
       <div class="space-y-2">
         <div class="flex justify-between text-xs font-semibold text-warmgray-600">
-          <span id="progressTitle">距離首波 100 人加碼目標：</span>
+          <span id="progressTitle">距離加碼目標：</span>
           <span id="progressText">計算中...</span>
         </div>
         <div class="w-full bg-brand-100 h-3 rounded-full overflow-hidden">
@@ -224,10 +224,7 @@
 
     // 初始化網頁數據與事件綁定
     document.addEventListener('DOMContentLoaded', () => {
-      // 預設先更新一次介面（防止卡在載入中）
-      updateUI(0);
-      
-      // 抓取即時人數
+      // 抓取即時人數（此時畫面上維持「載入中...」）
       fetchRespondentCount();
       
       // 設定 LINE 分享按鈕連結
@@ -262,10 +259,14 @@
         .then(data => {
           if (data && data.count !== undefined) {
             updateUI(data.count);
+          } else {
+            updateUI(0);
           }
         })
         .catch(err => {
-          console.warn('API 抓取連線中，保持預設或重試:', err);
+          console.warn('API 抓取連線失敗:', err);
+          const countElem = document.getElementById('respondentCount');
+          if (countElem) countElem.innerText = "0*";
         });
     }
 
@@ -307,7 +308,6 @@
     function copyShareText() {
       const textToCopy = document.getElementById('shareTextContent').innerText;
 
-      // 提示成功顯示函數
       const showSuccessAlert = () => {
         const alertBox = document.getElementById('copyAlert');
         if (alertBox) {
@@ -318,18 +318,15 @@
         }
       };
 
-      // 方案 1: 優先嘗試現代 API
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(textToCopy)
           .then(showSuccessAlert)
           .catch(() => fallbackCopy(textToCopy, showSuccessAlert));
       } else {
-        // 方案 2: 備用傳統複製法 (100% 相容所有環境)
         fallbackCopy(textToCopy, showSuccessAlert);
       }
     }
 
-    // 備用複製機制 (textarea)
     function fallbackCopy(text, callback) {
       const textArea = document.createElement("textarea");
       textArea.value = text;
