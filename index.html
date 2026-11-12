@@ -132,41 +132,53 @@
         <h2 class="text-xl font-bold text-brand-900">禮物卡樣式與適用通路說明</h2>
       </div>
 
-      <!-- 面額卡片呈現（已移除破圖框框） -->
+      <!-- 面額卡片呈現 -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-        <div class="bg-brand-50 p-5 rounded-xl border border-brand-200 space-y-2">
-          <div class="text-2xl font-black text-brand-700">NT$ 100</div>
-          <span class="text-xs font-bold text-brand-800 block">100元面額禮物卡</span>
+        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100/50 p-5 rounded-xl border border-emerald-200 space-y-2 shadow-sm">
+          <div class="text-2xl font-black text-emerald-700">NT$ 100</div>
+          <span class="text-xs font-bold text-emerald-900 block">100元面額禮物卡</span>
         </div>
-        <div class="bg-brand-50 p-5 rounded-xl border border-brand-200 space-y-2">
-          <div class="text-2xl font-black text-brand-700">NT$ 200</div>
-          <span class="text-xs font-bold text-brand-800 block">200元面額禮物卡</span>
+        <div class="bg-gradient-to-br from-amber-50 to-amber-100/50 p-5 rounded-xl border border-amber-200 space-y-2 shadow-sm">
+          <div class="text-2xl font-black text-amber-700">NT$ 200</div>
+          <span class="text-xs font-bold text-amber-900 block">200元面額禮物卡</span>
         </div>
-        <div class="bg-brand-50 p-5 rounded-xl border border-brand-200 space-y-2">
-          <div class="text-2xl font-black text-brand-700">NT$ 500</div>
-          <span class="text-xs font-bold text-brand-800 block">500元面額禮物卡</span>
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100/50 p-5 rounded-xl border border-blue-200 space-y-2 shadow-sm">
+          <div class="text-2xl font-black text-blue-700">NT$ 500</div>
+          <span class="text-xs font-bold text-blue-900 block">500元面額禮物卡</span>
         </div>
       </div>
 
-      <!-- 合作品牌與使用規範 -->
+      <!-- 合作品牌與使用規範 (恢復彩色視覺化版本) -->
       <div class="space-y-4 pt-2">
         <h3 class="text-sm font-bold text-brand-900">合作品牌專門店</h3>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-          <div class="bg-brand-50 p-3 rounded-xl border border-brand-200 flex flex-col items-center justify-center space-y-1">
-            <div class="h-10 flex items-center justify-center text-xs font-bold text-brand-800">全家 FamilyMart</div>
-            <span class="text-[10px] text-warmgray-600">便利商店</span>
+          <!-- 全家 -->
+          <div class="bg-emerald-50/80 p-3.5 rounded-xl border border-emerald-200 flex flex-col items-center justify-center space-y-1 shadow-sm hover:shadow transition-all">
+            <div class="h-10 flex items-center justify-center text-xs font-bold text-emerald-800">
+              <i class="fa-solid fa-store mr-1.5 text-emerald-600"></i> 全家 FamilyMart
+            </div>
+            <span class="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-medium">便利商店</span>
           </div>
-          <div class="bg-brand-50 p-3 rounded-xl border border-brand-200 flex flex-col items-center justify-center space-y-1">
-            <div class="h-10 flex items-center justify-center text-xs font-bold text-brand-800">大戶屋 OOTOYA</div>
-            <span class="text-[10px] text-warmgray-600">日式定食</span>
+          <!-- 大戶屋 -->
+          <div class="bg-indigo-50/80 p-3.5 rounded-xl border border-indigo-200 flex flex-col items-center justify-center space-y-1 shadow-sm hover:shadow transition-all">
+            <div class="h-10 flex items-center justify-center text-xs font-bold text-indigo-900">
+              <i class="fa-solid fa-bowl-rice mr-1.5 text-indigo-600"></i> 大戶屋 OOTOYA
+            </div>
+            <span class="text-[10px] text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded-full font-medium">日式定食</span>
           </div>
-          <div class="bg-brand-50 p-3 rounded-xl border border-brand-200 flex flex-col items-center justify-center space-y-1">
-            <div class="h-10 flex items-center justify-center text-xs font-bold text-brand-800">bb.q CHICKEN</div>
-            <span class="text-[10px] text-warmgray-600">韓式炸雞</span>
+          <!-- bb.q CHICKEN -->
+          <div class="bg-rose-50/80 p-3.5 rounded-xl border border-rose-200 flex flex-col items-center justify-center space-y-1 shadow-sm hover:shadow transition-all">
+            <div class="h-10 flex items-center justify-center text-xs font-bold text-rose-800">
+              <i class="fa-solid fa-drumstick-bite mr-1.5 text-rose-600"></i> bb.q CHICKEN
+            </div>
+            <span class="text-[10px] text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full font-medium">韓式炸雞</span>
           </div>
-          <div class="bg-brand-50 p-3 rounded-xl border border-brand-200 flex flex-col items-center justify-center space-y-1">
-            <div class="h-10 flex items-center justify-center text-xs font-bold text-brand-800">IKIGAI 燒肉</div>
-            <span class="text-[10px] text-warmgray-600">個人燒肉</span>
+          <!-- IKIGAI 燒肉 -->
+          <div class="bg-amber-50/80 p-3.5 rounded-xl border border-amber-200 flex flex-col items-center justify-center space-y-1 shadow-sm hover:shadow transition-all">
+            <div class="h-10 flex items-center justify-center text-xs font-bold text-amber-900">
+              <i class="fa-solid fa-fire-flame-curved mr-1.5 text-amber-600"></i> IKIGAI 燒肉
+            </div>
+            <span class="text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full font-medium">個人燒肉</span>
           </div>
         </div>
 
@@ -276,7 +288,6 @@
     ];       
     const DRAW_VIDEO_URL = "";
 
-    // 初始化網頁數據與事件綁定
     document.addEventListener('DOMContentLoaded', () => {
       fetchTotalRespondentCount();
       setupLineShare();
