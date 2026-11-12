@@ -107,7 +107,7 @@
             <i class="fa-solid fa-arrow-trend-up text-emerald-600"></i> 動態加碼機制
           </h3>
           <p class="text-xs text-emerald-700">
-            累積滿 <strong class="font-bold">100 人</strong>解鎖首波加碼（500元）；每增加 <strong class="font-bold">30 人</strong>加碼抽出 500 元禮券 1 名！
+            累積滿 <strong class="font-bold">100 人</strong>解鎖加碼（500元）；每增加 <strong class="font-bold">30 人</strong>加碼抽出 500 元禮券 1 名！
           </p>
         </div>
       </div>
@@ -212,8 +212,8 @@
 🥉 100元超商禮券 (3名)
 
 🚀 動態加碼機制：
-🎯 累積滿 100 人解鎖首波加碼！
-📈 每增加 30 人，加碼抽出 500 元禮券 1 名！快邀同事一起把獎項疊上去！🎉
+🎯 累積滿 100 人解鎖加碼！
+📈 每增加 30 人，就再加碼抽出 500 元禮券 1 名！快邀同事一起把獎項疊上去！🎉
 
 🔗 立即填寫問卷去抽獎：https://forms.gle/McScEJRPmQJtHWnW7</p>
       </div>
@@ -245,4 +245,169 @@
       </div>
 
       <!-- 影片嵌入或等待區塊 -->
-      <div id="video
+      <div id="videoContainer" class="border-2 border-dashed border-brand-200 rounded-2xl p-8 text-center bg-brand-50/50 space-y-4">
+        <div id="videoPlaceholder" class="space-y-3">
+          <div class="w-16 h-16 bg-brand-100 text-brand-500 rounded-2xl flex items-center justify-center mx-auto text-2xl">
+            <i class="fa-solid fa-clapperboard"></i>
+          </div>
+          <h3 class="font-bold text-brand-900 text-lg">抽獎公開影片上傳倒數中...</h3>
+          <p class="text-xs md:text-sm text-warmgray-600 max-w-md mx-auto">
+            研究團隊將於問卷收集截止後進行電腦隨機抽獎，並將全程錄影影片與得獎名單公布於此頁面，保障所有參與者的權益。
+          </p>
+          <div class="inline-block bg-white px-4 py-2 rounded-xl border border-brand-200 text-xs font-medium text-brand-700 shadow-sm mt-2">
+            <i class="fa-regular fa-calendar-days text-brand-500 mr-1"></i> 預計抽獎與公布時間：11 月中下旬抽獎，得獎者會另行通知
+          </div>
+        </div>
+
+        <div id="videoPlayerWrapper" style="display:none;" class="aspect-video w-full rounded-xl overflow-hidden shadow-md bg-black">
+          <iframe id="youtubeIframe" class="w-full h-full" src="" title="抽獎過程公開影片" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 底部版權 -->
+  <footer class="bg-white border-t border-brand-100 py-6 px-4 mt-12 text-center text-xs text-warmgray-600 space-y-1">
+    <p class="font-bold text-brand-800">國立臺灣師範大學 創造力發展研究所</p>
+    <p class="text-warmgray-600">© 2026 教科書編輯創新經驗研究團隊. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript 邏輯設定 -->
+  <script>
+    // ==========================================
+    // ⚙️ 參數設定區 (雙表單自動加總 - 容錯強化版)
+    // ==========================================
+    const API_URLS = [
+      "https://script.google.com/macros/s/AKfycby96y9TYVluWrX9oe9Hl9bjWTprAKrGOtFUlylN-ErJR_IqA6Z0tzYpgmaATK6rw6Heug/exec", // 舊表單 API
+      "https://script.google.com/macros/s/AKfycbzAs0n4XVXKZsWNUeBjds5W_rFIKuGQH7-xiGCDfr6oJRZtYFKcGBizlmpBApzSThA/exec"  // 新表單 API
+    ];       
+    const DRAW_VIDEO_URL = "";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchTotalRespondentCount();
+      setupLineShare();
+
+      if (DRAW_VIDEO_URL && DRAW_VIDEO_URL.trim() !== "") {
+        document.getElementById('videoPlaceholder').style.display = 'none';
+        const wrapper = document.getElementById('videoPlayerWrapper');
+        wrapper.style.display = 'block';
+        document.getElementById('youtubeIframe').src = DRAW_VIDEO_URL;
+      }
+    });
+
+    function setupLineShare() {
+      const shareText = document.getElementById('shareTextContent').innerText;
+      const targetUrl = "https://forms.gle/McScEJRPmQJtHWnW7";
+      const encodedText = encodeURIComponent(shareText);
+      const lineBtn = document.getElementById('lineShareBtn');
+      if (lineBtn) {
+        lineBtn.href = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(targetUrl)}&text=${encodedText}`;
+      }
+    }
+
+    // 採用獨立容錯抓取，避免單一 API 失敗導致整個畫面卡住
+    async function fetchTotalRespondentCount() {
+      const validUrls = API_URLS.filter(url => url && !url.includes("在此貼上"));
+      if (validUrls.length === 0) {
+        updateUI(0);
+        return;
+      }
+
+      let totalCount = 0;
+
+      // 逐一請求，失敗不影響整體
+      for (const url of validUrls) {
+        try {
+          const response = await fetch(url, { method: 'GET', redirect: 'follow' });
+          const data = await response.json();
+          if (data && data.count !== undefined) {
+            totalCount += Number(data.count);
+          }
+        } catch (err) {
+          console.warn('其中一個 API 抓取失敗，略過:', err);
+        }
+      }
+
+      updateUI(totalCount);
+    }
+
+    // 更新介面與「超過130人後加碼500元，每30人再加碼500元」的進度條邏輯
+    function updateUI(currentCount) {
+      const countElem = document.getElementById('respondentCount');
+      if (countElem) countElem.innerText = currentCount;
+
+      let percent = 0;
+      let needed = 0;
+      let bonusUnlockedCount = 0;
+
+      const titleElem = document.getElementById('progressTitle');
+      const textElem = document.getElementById('progressText');
+      const unlockedElem = document.getElementById('bonusUnlockedText');
+      const barElem = document.getElementById('progressBar');
+
+      if (currentCount < 130) {
+        needed = 130 - currentCount;
+        percent = (currentCount / 130) * 100;
+        if (titleElem) titleElem.innerText = `距離首波 130 人加碼目標：`;
+        if (textElem) textElem.innerText = `還差 ${needed} 人解鎖 500 元首波加碼！`;
+        if (unlockedElem) unlockedElem.innerText = `💪 累積滿 130 人將解鎖第一份 500 元加碼！`;
+      } else {
+        bonusUnlockedCount = 1 + Math.floor((currentCount - 130) / 30);
+        const excess = (currentCount - 130) % 30;
+        needed = 30 - excess;
+        percent = (excess / 30) * 100;
+
+        if (titleElem) titleElem.innerText = `距離下一個 30 人加碼目標：`;
+        if (textElem) textElem.innerText = `還差 ${needed} 人解鎖下一份 500 元加碼！`;
+        if (unlockedElem) unlockedElem.innerText = `🎉 目前已成功解鎖 ${bonusUnlockedCount} 份 500 元加碼禮券！`;
+      }
+
+      if (barElem) barElem.style.width = `${percent}%`;
+    }
+
+    function copyShareText() {
+      const textToCopy = document.getElementById('shareTextContent').innerText;
+
+      const showSuccessAlert = () => {
+        const alertBox = document.getElementById('copyAlert');
+        if (alertBox) {
+          alertBox.classList.remove('hidden');
+          setTimeout(() => {
+            alertBox.classList.add('hidden');
+          }, 3000);
+        }
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(textToCopy)
+          .then(showSuccessAlert)
+          .catch(() => fallbackCopy(textToCopy, showSuccessAlert));
+      } else {
+        fallbackCopy(textToCopy, showSuccessAlert);
+      }
+    }
+
+    function fallbackCopy(text, callback) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+        if (callback) callback();
+      } catch (err) {
+        alert("複製失敗，請手動選取文字進行複製。");
+      } finally {
+        document.body.removeChild(textArea);
+      }
+    }
+  </script>
+
+</body>
+</html>
