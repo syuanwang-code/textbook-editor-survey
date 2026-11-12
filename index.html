@@ -107,7 +107,7 @@
             <i class="fa-solid fa-arrow-trend-up text-emerald-600"></i> 動態加碼機制
           </h3>
           <p class="text-xs text-emerald-700">
-            累積滿 <strong class="font-bold">100 人</strong>解鎖加碼（500元）；每增加 <strong class="font-bold">30 人</strong>加碼抽出 500 元禮券 1 名！
+            累積滿 <strong class="font-bold">130 人</strong>解鎖加碼；每增加 <strong class="font-bold">30 人</strong>加碼抽出 500 元禮券 1 名！
           </p>
         </div>
       </div>
@@ -213,7 +213,7 @@
 
 🚀 動態加碼機制：
 🎯 累積滿 100 人解鎖加碼！
-📈 每增加 30 人，就再加碼抽出 500 元禮券 1 名！快邀同事一起把獎項疊上去！🎉
+📈 每增加 30 人，加碼抽出 500 元禮券 1 名！快邀同事一起把獎項疊上去！🎉
 
 🔗 立即填寫問卷去抽獎：https://forms.gle/McScEJRPmQJtHWnW7</p>
       </div>
@@ -276,7 +276,7 @@
   <!-- JavaScript 邏輯設定 -->
   <script>
     // ==========================================
-    // ⚙️ 參數設定區 (雙表單自動加總 - 容錯強化版)
+    // ⚙️ 參數設定區 (正確的網頁應用程式 exec 網址)
     // ==========================================
     const API_URLS = [
       "https://script.google.com/macros/s/AKfycby96y9TYVluWrX9oe9Hl9bjWTprAKrGOtFUlylN-ErJR_IqA6Z0tzYpgmaATK6rw6Heug/exec", // 舊表單 API
@@ -306,7 +306,7 @@
       }
     }
 
-    // 採用獨立容錯抓取，避免單一 API 失敗導致整個畫面卡住
+    // 容錯強化版非同步抓取
     async function fetchTotalRespondentCount() {
       const validUrls = API_URLS.filter(url => url && !url.includes("在此貼上"));
       if (validUrls.length === 0) {
@@ -316,7 +316,6 @@
 
       let totalCount = 0;
 
-      // 逐一請求，失敗不影響整體
       for (const url of validUrls) {
         try {
           const response = await fetch(url, { method: 'GET', redirect: 'follow' });
@@ -332,7 +331,7 @@
       updateUI(totalCount);
     }
 
-    // 更新介面與「超過130人後加碼500元，每30人再加碼500元」的進度條邏輯
+    // 更新介面與加碼進度邏輯
     function updateUI(currentCount) {
       const countElem = document.getElementById('respondentCount');
       if (countElem) countElem.innerText = currentCount;
