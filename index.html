@@ -132,29 +132,19 @@
         <h2 class="text-xl font-bold text-brand-900">禮物卡樣式與適用通路說明</h2>
       </div>
 
-      <!-- 禮物卡圖片預留位置（可自行更換 src 圖片網址） -->
+      <!-- 面額卡片呈現（已移除破圖框框） -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-        <div class="bg-brand-50 p-4 rounded-xl border border-brand-200 space-y-2">
-          <div class="bg-white h-32 rounded-lg border border-dashed border-brand-300 flex items-center justify-center text-warmgray-600 text-xs overflow-hidden">
-            <!-- 替換圖片請將下方 src 改為您的圖片網址 -->
-            <img src="" alt="100元禮物卡" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
-            <span class="p-2">100元禮物卡圖片預留</span>
-          </div>
-          <span class="text-xs font-bold text-brand-800">100元面額</span>
+        <div class="bg-brand-50 p-5 rounded-xl border border-brand-200 space-y-2">
+          <div class="text-2xl font-black text-brand-700">NT$ 100</div>
+          <span class="text-xs font-bold text-brand-800 block">100元面額禮物卡</span>
         </div>
-        <div class="bg-brand-50 p-4 rounded-xl border border-brand-200 space-y-2">
-          <div class="bg-white h-32 rounded-lg border border-dashed border-brand-300 flex items-center justify-center text-warmgray-600 text-xs overflow-hidden">
-            <img src="" alt="200元禮物卡" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
-            <span class="p-2">200元禮物卡圖片預留</span>
-          </div>
-          <span class="text-xs font-bold text-brand-800">200元面額</span>
+        <div class="bg-brand-50 p-5 rounded-xl border border-brand-200 space-y-2">
+          <div class="text-2xl font-black text-brand-700">NT$ 200</div>
+          <span class="text-xs font-bold text-brand-800 block">200元面額禮物卡</span>
         </div>
-        <div class="bg-brand-50 p-4 rounded-xl border border-brand-200 space-y-2">
-          <div class="bg-white h-32 rounded-lg border border-dashed border-brand-300 flex items-center justify-center text-warmgray-600 text-xs overflow-hidden">
-            <img src="" alt="500元禮物卡" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
-            <span class="p-2">500元禮物卡圖片預留</span>
-          </div>
-          <span class="text-xs font-bold text-brand-800">500元面額</span>
+        <div class="bg-brand-50 p-5 rounded-xl border border-brand-200 space-y-2">
+          <div class="text-2xl font-black text-brand-700">NT$ 500</div>
+          <span class="text-xs font-bold text-brand-800 block">500元面額禮物卡</span>
         </div>
       </div>
 
@@ -278,7 +268,7 @@
   <!-- JavaScript 邏輯設定 -->
   <script>
     // ==========================================
-    // ⚙️ 參數設定區 (支援多 API 網址自動加總)
+    // ⚙️ 參數設定區 (雙表單自動加總)
     // ==========================================
     const API_URLS = [
       "https://script.google.com/macros/s/AKfycby96y9TYVluWrX9oe9Hl9bjWTprAKrGOtFUlylN-ErJR_IqA6Z0tzYpgmaATK6rw6Heug/exec", // 舊表單 API
@@ -288,13 +278,9 @@
 
     // 初始化網頁數據與事件綁定
     document.addEventListener('DOMContentLoaded', () => {
-      // 抓取即時人數（雙表單加總）
       fetchTotalRespondentCount();
-      
-      // 設定 LINE 分享按鈕連結
       setupLineShare();
 
-      // 影片顯示切換
       if (DRAW_VIDEO_URL && DRAW_VIDEO_URL.trim() !== "") {
         document.getElementById('videoPlaceholder').style.display = 'none';
         const wrapper = document.getElementById('videoPlayerWrapper');
@@ -303,7 +289,6 @@
       }
     });
 
-    // 設定 LINE 分享按鈕
     function setupLineShare() {
       const shareText = document.getElementById('shareTextContent').innerText;
       const targetUrl = "https://forms.gle/McScEJRPmQJtHWnW7";
@@ -314,7 +299,6 @@
       }
     }
 
-    // 同時從多個 Google 試算表 API 抓取人數並加總
     function fetchTotalRespondentCount() {
       const validUrls = API_URLS.filter(url => url && !url.includes("在此貼上"));
       if (validUrls.length === 0) {
@@ -322,7 +306,6 @@
         return;
       }
 
-      // 使用 Promise.all 同時發送請求
       Promise.all(validUrls.map(url => 
         fetch(url, { method: 'GET', redirect: 'follow' })
           .then(res => res.json())
@@ -333,7 +316,6 @@
           })
       ))
       .then(counts => {
-        // 加總所有表單的人數
         const totalCount = counts.reduce((sum, current) => sum + current, 0);
         updateUI(totalCount);
       })
@@ -344,7 +326,6 @@
       });
     }
 
-    // 更新介面與「先滿100人再每30人加碼 200元」的進度條邏輯
     function updateUI(currentCount) {
       const countElem = document.getElementById('respondentCount');
       if (countElem) countElem.innerText = currentCount;
@@ -378,7 +359,6 @@
       if (barElem) barElem.style.width = `${percent}%`;
     }
 
-    // 100% 成功雙重複製文案功能
     function copyShareText() {
       const textToCopy = document.getElementById('shareTextContent').innerText;
 
