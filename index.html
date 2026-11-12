@@ -107,7 +107,7 @@
             <i class="fa-solid fa-arrow-trend-up text-emerald-600"></i> 動態加碼機制
           </h3>
           <p class="text-xs text-emerald-700">
-            累積滿 <strong class="font-bold">100 人</strong>解鎖首波加碼；之後每增加 <strong class="font-bold">30 人</strong>再加碼抽出 500 元禮券 1 名！
+            累積滿 <strong class="font-bold">100 人</strong>解鎖首波加碼；之後每增加 <strong class="font-bold">30 人</strong>再加碼抽出 200 元禮券 1 名！
           </p>
         </div>
       </div>
@@ -123,85 +123,66 @@
         </div>
         <p id="bonusUnlockedText" class="text-xs text-brand-600 font-medium text-right"></p>
       </div>
+    </section>
 
-      <!-- 禮物卡與適用品牌說明欄位 -->
-      <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 mt-4 space-y-4">
-        <div class="flex items-center gap-2 text-sm font-bold text-slate-800 border-b border-slate-200 pb-3">
-          <i class="fa-solid fa-credit-card text-brand-600 text-base"></i>
-          <span>獎項禮券說明（全家便利商店禮物卡）</span>
+    <!-- 禮物卡與合作品牌說明區塊 -->
+    <section class="bg-white rounded-2xl shadow-sm border border-brand-100 p-6 md:p-8 space-y-6">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-500">Reward Details</span>
+        <h2 class="text-xl font-bold text-brand-900">禮物卡樣式與適用通路說明</h2>
+      </div>
+
+      <!-- 禮物卡圖片預留位置（可自行更換 src 圖片網址） -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+        <div class="bg-brand-50 p-4 rounded-xl border border-brand-200 space-y-2">
+          <div class="bg-white h-32 rounded-lg border border-dashed border-brand-300 flex items-center justify-center text-warmgray-600 text-xs overflow-hidden">
+            <!-- 替換圖片請將下方 src 改為您的圖片網址 -->
+            <img src="" alt="100元禮物卡" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+            <span class="p-2">100元禮物卡圖片預留</span>
+          </div>
+          <span class="text-xs font-bold text-brand-800">100元面額</span>
         </div>
-        
-        <!-- 禮物卡卡樣預覽 -->
-        <div>
-          <p class="text-xs font-semibold text-slate-600 mb-2">🎁 抽獎禮物卡面額樣式（100元 / 200元 / 500元）：</p>
-          <div class="grid grid-cols-3 gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
-            <div class="text-center space-y-1">
-              <div class="h-16 md:h-20 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex flex-col justify-center items-center text-white p-1 shadow-sm relative overflow-hidden">
-                <span class="text-[10px] opacity-80 font-mono">FamilyMart</span>
-                <span class="text-xs md:text-sm font-black">禮物卡 100</span>
-                <span class="text-[9px] bg-white/20 px-1.5 py-0.5 rounded mt-1">面額 $100</span>
-              </div>
-            </div>
-            <div class="text-center space-y-1">
-              <div class="h-16 md:h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex flex-col justify-center items-center text-white p-1 shadow-sm relative overflow-hidden">
-                <span class="text-[10px] opacity-80 font-mono">FamilyMart</span>
-                <span class="text-xs md:text-sm font-black">禮物卡 200</span>
-                <span class="text-[9px] bg-white/20 px-1.5 py-0.5 rounded mt-1">面額 $200</span>
-              </div>
-            </div>
-            <div class="text-center space-y-1">
-              <div class="h-16 md:h-20 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex flex-col justify-center items-center text-white p-1 shadow-sm relative overflow-hidden">
-                <span class="text-[10px] opacity-80 font-mono">FamilyMart</span>
-                <span class="text-xs md:text-sm font-black">禮物卡 500</span>
-                <span class="text-[9px] bg-white/20 px-1.5 py-0.5 rounded mt-1">面額 $500</span>
-              </div>
-            </div>
+        <div class="bg-brand-50 p-4 rounded-xl border border-brand-200 space-y-2">
+          <div class="bg-white h-32 rounded-lg border border-dashed border-brand-300 flex items-center justify-center text-warmgray-600 text-xs overflow-hidden">
+            <img src="" alt="200元禮物卡" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+            <span class="p-2">200元禮物卡圖片預留</span>
+          </div>
+          <span class="text-xs font-bold text-brand-800">200元面額</span>
+        </div>
+        <div class="bg-brand-50 p-4 rounded-xl border border-brand-200 space-y-2">
+          <div class="bg-white h-32 rounded-lg border border-dashed border-brand-300 flex items-center justify-center text-warmgray-600 text-xs overflow-hidden">
+            <img src="" alt="500元禮物卡" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+            <span class="p-2">500元禮物卡圖片預留</span>
+          </div>
+          <span class="text-xs font-bold text-brand-800">500元面額</span>
+        </div>
+      </div>
+
+      <!-- 合作品牌與使用規範 -->
+      <div class="space-y-4 pt-2">
+        <h3 class="text-sm font-bold text-brand-900">合作品牌專門店</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+          <div class="bg-brand-50 p-3 rounded-xl border border-brand-200 flex flex-col items-center justify-center space-y-1">
+            <div class="h-10 flex items-center justify-center text-xs font-bold text-brand-800">全家 FamilyMart</div>
+            <span class="text-[10px] text-warmgray-600">便利商店</span>
+          </div>
+          <div class="bg-brand-50 p-3 rounded-xl border border-brand-200 flex flex-col items-center justify-center space-y-1">
+            <div class="h-10 flex items-center justify-center text-xs font-bold text-brand-800">大戶屋 OOTOYA</div>
+            <span class="text-[10px] text-warmgray-600">日式定食</span>
+          </div>
+          <div class="bg-brand-50 p-3 rounded-xl border border-brand-200 flex flex-col items-center justify-center space-y-1">
+            <div class="h-10 flex items-center justify-center text-xs font-bold text-brand-800">bb.q CHICKEN</div>
+            <span class="text-[10px] text-warmgray-600">韓式炸雞</span>
+          </div>
+          <div class="bg-brand-50 p-3 rounded-xl border border-brand-200 flex flex-col items-center justify-center space-y-1">
+            <div class="h-10 flex items-center justify-center text-xs font-bold text-brand-800">IKIGAI 燒肉</div>
+            <span class="text-[10px] text-warmgray-600">個人燒肉</span>
           </div>
         </div>
 
-        <p class="text-xs text-slate-600 leading-relaxed font-medium">
-          📌 可於全台灣地區全家便利商店、大戶屋、bb.q CHICKEN及IKIGAI 燒肉專門店門市使用(新光三越百貨及部分商場除外)。
+        <p class="text-xs text-warmgray-600 leading-relaxed bg-brand-50/50 p-4 rounded-xl border border-brand-100">
+          📍 <strong>使用規範：</strong>本禮物卡可在全台灣地區全家便利商店、大戶屋、bb.q CHICKEN及IKIGAI 燒肉專門店門市使用 (新光三越百貨及部分商場除外)。
         </p>
-
-        <!-- 合作品牌視覺化 LOGO 展示區 -->
-        <div class="space-y-1.5">
-          <p class="text-xs font-semibold text-slate-600">🏪 適用合作品牌門市：</p>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-            
-            <!-- 全家 -->
-            <div class="bg-white rounded-xl p-2.5 border border-slate-200 flex flex-col items-center justify-center text-center shadow-sm hover:border-emerald-300 transition-all">
-              <div class="w-full h-8 flex items-center justify-center font-black text-emerald-600 text-sm tracking-tighter">
-                <span class="bg-emerald-600 text-white px-1 py-0.5 rounded text-[10px] mr-1">全家</span>FamilyMart
-              </div>
-              <span class="text-[10px] font-medium text-slate-500 mt-1">全家便利商店</span>
-            </div>
-
-            <!-- 大戶屋 -->
-            <div class="bg-white rounded-xl p-2.5 border border-slate-200 flex flex-col items-center justify-center text-center shadow-sm hover:border-blue-300 transition-all">
-              <div class="w-full h-8 flex items-center justify-center bg-blue-950 text-white font-bold text-xs rounded px-1">
-                大戶屋 OOTOYA
-              </div>
-              <span class="text-[10px] font-medium text-slate-500 mt-1">大戶屋日式料理</span>
-            </div>
-
-            <!-- bb.q CHICKEN -->
-            <div class="bg-white rounded-xl p-2.5 border border-slate-200 flex flex-col items-center justify-center text-center shadow-sm hover:border-amber-300 transition-all">
-              <div class="w-full h-8 flex items-center justify-center border-2 border-red-600 text-red-600 font-black text-xs rounded">
-                bb.q CHICKEN
-              </div>
-              <span class="text-[10px] font-medium text-slate-500 mt-1">韓式炸雞</span>
-            </div>
-
-            <!-- IKIGAI 燒肉 -->
-            <div class="bg-white rounded-xl p-2.5 border border-slate-200 flex flex-col items-center justify-center text-center shadow-sm hover:border-orange-300 transition-all">
-              <div class="w-full h-8 flex items-center justify-center border-2 border-amber-800 text-amber-900 font-bold text-xs rounded bg-amber-50">
-                IKIGAI 燒肉
-              </div>
-              <span class="text-[10px] font-medium text-slate-500 mt-1">燒肉專門店</span>
-            </div>
-
-          </div>
-        </div>
       </div>
     </section>
 
@@ -227,14 +208,14 @@
 
 臺師大創造力發展研究所正在進行一項關於教科書編輯的研究！誠摯邀請各位夥伴撥冗填寫，讓社會各界更能理解到教科書出版人的專業價值與貢獻！
 
-🎁 填問卷即可抽豐富好禮（全家禮物卡）：
-🥇 500元禮券 (1名)
-🥈 200元禮券 (2名)
-🥉 100元禮券 (3名)
+🎁 填問卷即可抽豐富好禮：
+🥇 500元超商禮券 (1名)
+🥈 200元超商禮券 (2名)
+🥉 100元超商禮券 (3名)
 
 🚀 動態加碼機制：
 🎯 累積滿 100 人直接解鎖第一波加碼！
-📈 之後每增加 30 人，就再加碼抽出一名 500元禮券！快邀同事一起把獎項疊上去！🎉
+📈 之後每增加 30 人，就再加碼抽出一名 200元禮券！快邀同事一起把獎項疊上去！🎉
 
 🔗 立即填寫問卷去抽獎：https://forms.gle/McScEJRPmQJtHWnW7</p>
       </div>
@@ -297,15 +278,18 @@
   <!-- JavaScript 邏輯設定 -->
   <script>
     // ==========================================
-    // ⚙️ 參數設定區
+    // ⚙️ 參數設定區 (支援多 API 網址自動加總)
     // ==========================================
-    const API_URL = "https://script.google.com/macros/s/AKfycby96y9TYVluWrX9oe9Hl9bjWTprAKrGOtFUlylN-ErJR_IqA6Z0tzYpgmaATK6rw6Heug/exec";       
+    const API_URLS = [
+      "https://script.google.com/macros/s/AKfycby96y9TYVluWrX9oe9Hl9bjWTprAKrGOtFUlylN-ErJR_IqA6Z0tzYpgmaATK6rw6Heug/exec", // 舊表單 API
+      "https://script.google.com/macros/s/AKfycbzAs0n4XVXKZsWNUeBjds5W_rFIKuGQH7-xiGCDfr6oJRZtYFKcGBizlmpBApzSThA/exec"  // 新表單 API
+    ];       
     const DRAW_VIDEO_URL = "";
 
     // 初始化網頁數據與事件綁定
     document.addEventListener('DOMContentLoaded', () => {
-      // 抓取即時人數（此時畫面上維持「載入中...」）
-      fetchRespondentCount();
+      // 抓取即時人數（雙表單加總）
+      fetchTotalRespondentCount();
       
       // 設定 LINE 分享按鈕連結
       setupLineShare();
@@ -330,27 +314,37 @@
       }
     }
 
-    // 從 Google 試算表動態取得人數的函數
-    function fetchRespondentCount() {
-      if (!API_URL || API_URL.includes("在此貼上")) return;
+    // 同時從多個 Google 試算表 API 抓取人數並加總
+    function fetchTotalRespondentCount() {
+      const validUrls = API_URLS.filter(url => url && !url.includes("在此貼上"));
+      if (validUrls.length === 0) {
+        updateUI(0);
+        return;
+      }
 
-      fetch(API_URL, { method: 'GET', redirect: 'follow' })
-        .then(response => response.json())
-        .then(data => {
-          if (data && data.count !== undefined) {
-            updateUI(data.count);
-          } else {
-            updateUI(0);
-          }
-        })
-        .catch(err => {
-          console.warn('API 抓取連線失敗:', err);
-          const countElem = document.getElementById('respondentCount');
-          if (countElem) countElem.innerText = "0*";
-        });
+      // 使用 Promise.all 同時發送請求
+      Promise.all(validUrls.map(url => 
+        fetch(url, { method: 'GET', redirect: 'follow' })
+          .then(res => res.json())
+          .then(data => (data && data.count !== undefined ? Number(data.count) : 0))
+          .catch(err => {
+            console.warn('其中一個 API 抓取失敗:', err);
+            return 0;
+          })
+      ))
+      .then(counts => {
+        // 加總所有表單的人數
+        const totalCount = counts.reduce((sum, current) => sum + current, 0);
+        updateUI(totalCount);
+      })
+      .catch(err => {
+        console.error('API 總加總失敗:', err);
+        const countElem = document.getElementById('respondentCount');
+        if (countElem) countElem.innerText = "0*";
+      });
     }
 
-    // 更新介面與「先滿100人再每30人加碼」的進度條邏輯
+    // 更新介面與「先滿100人再每30人加碼 200元」的進度條邏輯
     function updateUI(currentCount) {
       const countElem = document.getElementById('respondentCount');
       if (countElem) countElem.innerText = currentCount;
