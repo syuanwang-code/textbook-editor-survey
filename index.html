@@ -107,7 +107,7 @@
             <i class="fa-solid fa-arrow-trend-up text-emerald-600"></i> 動態加碼機制
           </h3>
           <p class="text-xs text-emerald-700">
-            累積滿 <strong class="font-bold">130 人</strong>解鎖加碼；每增加 <strong class="font-bold">30 人</strong>加碼抽出 500 元禮券 1 名！
+            累積滿 <strong class="font-bold">100 人</strong>解鎖加碼；每增加 <strong class="font-bold">30 人</strong>加碼抽出 500 元禮券 1 名！
           </p>
         </div>
       </div>
@@ -255,7 +255,7 @@
             研究團隊將於問卷收集截止後進行電腦隨機抽獎，並將全程錄影影片與得獎名單公布於此頁面，保障所有參與者的權益。
           </p>
           <div class="inline-block bg-white px-4 py-2 rounded-xl border border-brand-200 text-xs font-medium text-brand-700 shadow-sm mt-2">
-            <i class="fa-regular fa-calendar-days text-brand-500 mr-1"></i> 預計抽獎與公布時間：11 月中下旬抽獎，得獎者會另行通知
+            <i class="fa-regular fa-calendar-days text-brand-500 mr-1"></i> 預計抽獎與公布時間：11 月下旬抽獎，得獎者會另行通知
           </div>
         </div>
 
@@ -279,9 +279,9 @@
     // ⚙️ 參數設定區 (正確的網頁應用程式 exec 網址)
     // ==========================================
     const API_URLS = [
-      "https://script.google.com/macros/s/AKfycby96y9TYVluWrX9oe9Hl9bjWTprAKrGOtFUlylN-ErJR_IqA6Z0tzYpgmaATK6rw6Heug/exec", // 舊表單 API
-      "https://script.google.com/macros/s/AKfycbzAs0n4XVXKZsWNUeBjds5W_rFIKuGQH7-xiGCDfr6oJRZtYFKcGBizlmpBApzSThA/exec"  // 新表單 API
-    ];       
+      "https://script.google.com/macros/s/AKfycby96y9TYVluWrX9oe9Hl9bjWTprAKrGOtFUlylN-ErJR_IqA6Z0tzYpgmaATK6rw6Heug/exec", // 表單 1 API
+      "https://script.google.com/macros/s/AKfycbzAs0n4XVXKZsWNUeBjds5W_rFIKuGQH7-xiGCDfr6oJRZtYFKcFDxGBizlmpBApzSThA/exec"  // 表單 2 API (已補上 FDx)
+    ];
     const DRAW_VIDEO_URL = "";
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -306,7 +306,7 @@
       }
     }
 
-    // 容錯強化版非同步抓取
+    // 平行非同步抓取 + 防快取 + 除錯記錄
     async function fetchTotalRespondentCount() {
       const validUrls = API_URLS.filter(url => url && !url.includes("在此貼上"));
       if (validUrls.length === 0) {
@@ -314,20 +314,22 @@
         return;
       }
 
-      let totalCount = 0;
-
-      for (const url of validUrls) {
+      const requests = validUrls.map(async (url, index) => {
         try {
-          const response = await fetch(url, { method: 'GET', redirect: 'follow' });
+          const cacheBusterUrl = `${url}?t=${Date.now()}`;
+          const response = await fetch(cacheBusterUrl, { method: 'GET', redirect: 'follow' });
           const data = await response.json();
-          if (data && data.count !== undefined) {
-            totalCount += Number(data.count);
-          }
+          const count = (data && data.count !== undefined) ? Number(data.count) : 0;
+          console.log(`表單 ${index + 1} 抓取成功，人數：`, count);
+          return isNaN(count) ? 0 : count;
         } catch (err) {
-          console.warn('其中一個 API 抓取失敗，略過:', err);
+          console.error(`表單 ${index + 1} API 抓取失敗:`, err);
+          return 0;
         }
-      }
+      });
 
+      const counts = await Promise.all(requests);
+      const totalCount = counts.reduce((sum, num) => sum + num, 0);
       updateUI(totalCount);
     }
 
